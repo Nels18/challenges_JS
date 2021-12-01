@@ -25,12 +25,25 @@ const scoreTeam2 = scores[1][1];
 
 const getSom = (accumulator, current) => accumulator + current;
 const getAverageScore = scoreTeam => scoreTeam.reduce(getSom) / scoreTeam.length;
+// const getWinner = (scores) => {
+//     let result =`${team1} ont fait match nul ${team2}.`
+//     if (getAverageScore(scoreTeam1) > getAverageScore(scoreTeam2)) {
+//         result = `${team1} ont gagné`;
+//     } else if (getAverageScore(scoreTeam2) > getAverageScore(scoreTeam1)) {
+//         result = `${team2} ont gagné`;
+//     }
+
+//     return result;
+// }
+// New rule
 const getWinner = (scores) => {
     let result =`${team1} ont fait match nul ${team2}.`
-    if (getAverageScore(scoreTeam1) > getAverageScore(scoreTeam2)) {
-        result = `${team1} ont gagné`;
-    } else if (getAverageScore(scoreTeam2) > getAverageScore(scoreTeam1)) {
-        result = `${team2} ont gagné`;
+    if (100 < getAverageScore(scoreTeam1) || 100 < getAverageScore(scoreTeam2)) {
+        if (getAverageScore(scoreTeam1) > getAverageScore(scoreTeam2)) {
+            result = `${team1} ont gagné`;
+        } else if (getAverageScore(scoreTeam2) > getAverageScore(scoreTeam1)) {
+            result = `${team2} ont gagné`;
+        }
     }
 
     return result;
