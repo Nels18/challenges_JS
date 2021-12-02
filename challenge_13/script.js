@@ -1,10 +1,8 @@
 // Challenge13 : football app
 
-/*
-On va créer une app de paris foot !
+/* On va créer une app de paris foot !
 
-Supposons que nous récupérons les données d’un service web à propos d’un certain jeu (variable ‘game’ dans le code en dessous). Dans ce challenge, on va travailler avec ces données.
-*/
+Supposons que nous récupérons les données d’un service web à propos d’un certain jeu (variable ‘game’ dans le code en dessous). Dans ce challenge, on va travailler avec ces données. */
 
 const game = {
   team1: 'Bayern Munich',
@@ -92,7 +90,7 @@ const printGoals = (numberOfPlayer) => {
     if (!players.includes(player)) {
       players.push(player);
 
-      console.log(`${player} : ${(Math.floor(Math.random() * 60 ) + 1)} but(s) au total`);
+      console.log(`${player} : ${(Math.floor(Math.random() * 60 ) + 1)} but(s) au total.`);
     }
   }
 }
@@ -110,15 +108,91 @@ const printFavory = () => {
   console.log(message);
 }
 
-console.log('players1 :', players1);
-console.log('players2 :', players2);
-console.log('gk :', gk);
-console.log('fieldPlayers :', fieldPlayers);
-console.log('allPlayers :', allPlayers);
-console.log('players1Final :', players1Final);
-console.log('team1 :', team1);
-console.log('draw :', draw);
-console.log('team2 :', team2);
-printGoals(8);
-printFavory();
+// console.log('players1 :', players1);
+// console.log('players2 :', players2);
+// console.log('gk :', gk);
+// console.log('fieldPlayers :', fieldPlayers);
+// console.log('allPlayers :', allPlayers);
+// console.log('players1Final :', players1Final);
+// console.log('team1 :', team1);
+// console.log('draw :', draw);
+// console.log('team2 :', team2);
+// printGoals(8);
+// printFavory();
+
+
+// 🏁 Exercice 2
+
+// Faire une boucle sur le tableau game.scored et afficher dans la console chaque nom de butteur ainsi que le numéro du but : (Exemple : “But 1 : Lewanoski”).
+
+const printScorers = () => {
+  for (let index = 0; index < game.scored.length; index++) {
+    const scorer = game.scored[index];
+    console.log(`But ${index + 1} : ${scorer}.`);
+  }
+}
+
+
+// Faire une boucle qui calcule la moyenne des probabilités et l’écrire dans la console.
+const printAverageOdds = () => {
+  let sumOdds = 0;
+  let nbOdds = 0;
+  
+  for (const key in game.odds) {
+    if (Object.hasOwnProperty.call(game.odds, key)) {
+      const odd = game.odds[key];
+      nbOdds++
+      sumOdds  += odd;
+    }
+  }
+  
+  const averageOdds = sumOdds / nbOdds;
+  
+  console.log('Moyenne des probabilités :', averageOdds.toFixed(2));
+}
+
+
+/* Afficher les 2 probabilités dans la console, mais dans un joli format comme ceci :
+Probabilité de victoire pour Bayern Munich : 1,33
+Probabilité d’égalité : 3,25
+Probabilité de victoire de Borussia Dortmund : 6,5
+Bien récupérer les noms des équipes depuis l’objet ‘game’, ne pas les “hardcoder”. */
+
+const printOdds = () => {
+  for (const key in game.odds) {
+    if (Object.hasOwnProperty.call(game.odds, key)) {
+      const odd = game.odds[key];
+      if ('x' == key) {
+        console.log(`Probabilité d’égalité : ${odd}`);
+      } else {
+        console.log(`Probabilité de victoire pour ${game[key]} : ${odd}`);
+      }
+    }
+  }
+}
+
+
+// Créer un objet appelé ‘scorers’ qui contient le nom des joueurs qui ont marqué en propriété et le nombre de buts qu’ils ont marqué en value. Exemple :
+/* {
+  Gnarby: 1,
+  Hummels: 1,
+  Lewandowski: 2
+} */
+
+let scorers = {};
+
+for (let index = 0; index < game.scored.length; index++) {
+  const scorer = game.scored[index];
+  if (scorers.hasOwnProperty(scorer)) {
+    scorers[scorer]++;
+  } else {
+    scorers[scorer] = 1;
+  }
+}
+
+
+printScorers();
+printAverageOdds();
+printOdds();
+console.log('scorers :', scorers);
 
